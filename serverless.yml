@@ -1,0 +1,26 @@
+org: mhanania
+app: cohasa-ia
+name: cohasa-ia
+service: cohasa-ia-lmb-python-ia # NOTE: update this with your service name
+
+frameworkVersion: "2 || 3"
+
+configValidationMode: off
+
+provider:
+  name: aws
+  runtime: python3.8
+  #lambdaHashingVersion: 20201221
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  #stage: ${opt:stage, self:provider.stage}
+  module: cohasa-ia-lmb-python-ia
+
+functions:
+  ia:
+    handler: handler.ia
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
