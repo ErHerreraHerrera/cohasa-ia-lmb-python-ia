@@ -16,6 +16,7 @@ provider:
   #stage: ${opt:stage, self:provider.stage}
   module: cohasa-ia-lmb-python-ia
 
+#FUNCIONEs
 functions:
   ia:
     handler: handler.ia
