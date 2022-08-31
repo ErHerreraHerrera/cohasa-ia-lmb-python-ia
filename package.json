@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "dev": "npm-watch dev:serverless",
+    "dev:serverless": "sls offline start"
+  },
+  "watch": {
+    "dev:serverless": {
+      "patterns": [
+        "serverless.yml",
+        "/"
+      ],
+      "extensions": "js",
+      "quiet": true
+    }
+  },
+  "devDependencies": {
+    "npm-watch": "^0.11.0",
+    "serverless-auto-swagger": "^2.8.2",
+    "serverless-offline": "^9.3.0"
+  }
+}
