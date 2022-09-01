@@ -1,0 +1,71 @@
+#org: mhanania
+app: cohasa-ia
+name: cohasa-ia
+service: cohasa-ia-lmb-python-ia # NOTE: update this with your service name
+
+frameworkVersion: "2 || 3"
+
+configValidationMode: off
+
+provider:
+  name: aws
+  runtime: python3.8
+  #lambdaHashingVersion: 20201221
+  region: us-east-1
+  #stage: ${'dev'}
+  stage: ${opt:stage, 'local'}
+  #stage: ${opt:stage, self:provider.stage}
+  module: cohasa-ia-lmb-python-ia
+  #iamRoleStatements:
+  #  - Effect: "Allow"
+  #  - Effect: "Allow"
+  #    Action:
+  #      - "s3:GetObject"
+  #      - "s3:PutObject"
+  #      - "s3:PutObjectAcl"
+  #    Resource: "arn:aws:s3:::*"
+
+plugins: ["serverless-auto-swagger", "serverless-offline"]
+
+custom:
+  autoswagger:
+    title: "API IA"
+    swaggerPath: "def"
+    excludeStages: ["dev", "pre", "test", "prod"]
+
+#FUNCIONES
+functions:
+  ia:
+    handler: handler.ia
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+#resources:
+#  Resources:
+#    GatewayResponseDefault4XX:
+#      Type: "AWS::ApiGateway::GatewayResponse"
+#      Properties:
+#        ResponseParameters:
+#          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+#          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+#        ResponseType: DEFAULT_4XX
+#        RestApiId:
+#          Ref: "ApiGatewayRestApi"
+#    ApiGatewayRestApi:
+#      Type: AWS::ApiGateway::RestApi
+#      Properties:
+#        Name: ${self:provider.stage}-${self:provider.module}
+#        Description: ${self:provider.module} Api
+#    ApiGatewayAuth:
+#      Type: AWS::ApiGateway::Authorizer
+#      Properties:
+#        AuthorizerResultTtlInSeconds: 300
+#        IdentitySource: method.request.header.Authorization
+#        Name: Cognito
+#        RestApiId:
+#          Ref: ApiGatewayRestApi
+#        Type: COGNITO_USER_POOLS
+#        ProviderARNs:
+#          - arn:aws:cognito-idp:us-east-1:${file(./config/${self:provider.stage}.json):AWS_ACCOUNT}:userpool/${file(./config/${self:provider.stage}.json):COGNITO_POOLID}
