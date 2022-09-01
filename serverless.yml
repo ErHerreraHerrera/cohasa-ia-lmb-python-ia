@@ -31,7 +31,7 @@ custom:
   autoswagger:
     title: "API IA"
     swaggerPath: "def"
-    excludeStages: ["pre", "test", "prod"]
+    excludeStages: ["dev", "pre", "test", "prod"]
   #newRelic:
   #  accountId: 3587530
   #  apiKey: NRAK-4OIRLKOGVRGL6ROEB721IC2SEVD
