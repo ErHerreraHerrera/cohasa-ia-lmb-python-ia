@@ -13,7 +13,7 @@ provider:
   #lambdaHashingVersion: 20201221
   region: us-east-1
   #stage: ${'dev'}
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'local'}
   #stage: ${opt:stage, self:provider.stage}
   module: cohasa-ia-lmb-python-ia
   #iamRoleStatements:
@@ -25,17 +25,13 @@ provider:
   #      - "s3:PutObjectAcl"
   #    Resource: "arn:aws:s3:::*"
 
-plugins: ["serverless-auto-swagger", "serverless-offline"]
+#plugins: ["serverless-auto-swagger", "serverless-offline"]
 
-custom:
-  autoswagger:
-    title: "API IA"
-    swaggerPath: "def"
-    excludeStages: ["dev", "pre", "test", "prod"]
-  #newRelic:
-  #  accountId: 3587530
-  #  apiKey: NRAK-4OIRLKOGVRGL6ROEB721IC2SEVD
-  #  logLevel: debug
+#custom:
+#  autoswagger:
+#    title: "API IA"
+#    swaggerPath: "def"
+#    excludeStages: ["dev", "pre", "test", "prod"]
 
 #FUNCIONES
 functions:
